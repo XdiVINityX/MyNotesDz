@@ -5,15 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
     tools:context=".NoteDetailFragment">
 
     <TableLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-            <TextView
+            <EditText
                 android:id="@+id/title"
                 android:layout_weight="4"
                 android:layout_width="wrap_content"
@@ -31,10 +35,11 @@
         </TableRow>
     </TableLayout>
 
-    <TextView
+    <EditText
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/description"/>
+        android:inputType="textMultiLine"
+        android:text="@string/description" />
 
 </LinearLayout>

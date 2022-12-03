@@ -40,7 +40,7 @@ public class NoteDetailFragment extends Fragment {
         Bundle arguments = getArguments();
         if (arguments != null){
             int index = arguments.getInt(ARG_INDEX);
-            String data  = Note.getNotes()[index].getCreationData().toString();
+            String data  = Note.getNotes()[index].getCreationData();
             TextView textViewTitle = view.findViewById(R.id.title);
             TextView textViewDescription = view.findViewById(R.id.description);
             TextView textViewCreationData = view.findViewById(R.id.creationData);

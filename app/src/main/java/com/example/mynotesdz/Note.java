@@ -63,7 +63,7 @@ public class Note {
 
         LocalDateTime localDateTime = LocalDateTime.now().plusDays(-random.nextInt(5));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String creationData = localDateTime.format(formatter).toString();
+        String creationData = localDateTime.format(formatter);
 
         return new Note(title, description, creationData);
 

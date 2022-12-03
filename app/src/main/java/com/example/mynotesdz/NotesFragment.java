@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +17,15 @@ import android.widget.TextView;
 
 public class NotesFragment extends Fragment {
 
+    private final static String SELECTED_INDEX = "index";
+    private int currentPosition = 0;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt(SELECTED_INDEX, currentPosition);
+        super.onSaveInstanceState(outState);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,6 +37,9 @@ public class NotesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null) {
+            currentPosition = savedInstanceState.getInt(SELECTED_INDEX, 0);
+        }
 
         initNotes(view.findViewById(R.id.notes_container));
     }
@@ -42,17 +51,17 @@ public class NotesFragment extends Fragment {
             textViewNote.setTextSize(24);
             textViewNote.setText(Note.getNotes()[i].getTitle());
             linearLayout.addView(textViewNote);
-
             final int index = i;
             textViewNote.setOnClickListener(v -> {
-                    showNoteDetail(index);
+                showNoteDetail(index);
             });
         }
 
     }
 
+
     private void showNoteDetail(int index) {
-        if (isPortrait()){
+        if (isPortrait()) {
             NoteDetailFragment noteDetailFragment = NoteDetailFragment.newInstanse(index);
             requireActivity()
                     .getSupportFragmentManager()
@@ -61,21 +70,29 @@ public class NotesFragment extends Fragment {
                     .addToBackStack("")
                     .commit();
         }
-        if (isLandscape()){
+        if (isLandscape()) {
+            FragmentManager fm = requireActivity().getSupportFragmentManager();
+            if (fm.getBackStackEntryCount() >= 1) {
+                fm.popBackStack();
+            }
             NoteDetailFragment noteDetailFragment = NoteDetailFragment.newInstanse(index);
             requireActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container_description, noteDetailFragment)
+                    .addToBackStack("")
                     .commit();
         }
     }
+
+
     private boolean isLandscape() {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
-    private boolean isPortrait(){
+    private boolean isPortrait() {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
+
 
 }
