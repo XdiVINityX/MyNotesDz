@@ -11,13 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.time.LocalDateTime;
-import java.util.Calendar;
-
 
 public class NoteDetailFragment extends Fragment {
 
-    final static String ARG_INDEX = "index";
+    final static String SELECTED_NOTE = "note";
+    Note note;
 
 
     @Override
@@ -39,23 +37,24 @@ public class NoteDetailFragment extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null){
-            int index = arguments.getInt(ARG_INDEX);
-            String data  = Note.getNotes()[index].getCreationData();
+            note = (Note)arguments.getSerializable(SELECTED_NOTE);
+            String data  = note.getCreationData();
             TextView textViewTitle = view.findViewById(R.id.title);
             TextView textViewDescription = view.findViewById(R.id.description);
             TextView textViewCreationData = view.findViewById(R.id.creationData);
 
-            textViewTitle.setText(Note.getNotes()[index].getTitle());
-            textViewDescription.setText(Note.getNotes()[index].getDescription());
+            textViewTitle.setText(note.getTitle());
+            textViewDescription.setText(note.getDescription());
             textViewCreationData.setText(data);
         }
     }
 
-    public static NoteDetailFragment newInstanse(int index){
+    public static NoteDetailFragment newInstanceSer(Note note){
         NoteDetailFragment noteDetailFragment = new NoteDetailFragment();
         Bundle arg = new Bundle();
-        arg.putInt(ARG_INDEX,index);
+        arg.putSerializable(SELECTED_NOTE,note);
         noteDetailFragment.setArguments(arg);
         return noteDetailFragment;
+
     }
 }

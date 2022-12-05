@@ -17,15 +17,15 @@ import android.widget.TextView;
 
 public class NotesFragment extends Fragment {
 
-    private final static String SELECTED_INDEX = "index";
-    private int currentPosition = 0;
+
+    static final String SELECTED_NOTE = "note";
+    Note note;
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt(SELECTED_INDEX, currentPosition);
         super.onSaveInstanceState(outState);
+        outState.putSerializable(SELECTED_NOTE,note);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,8 +37,8 @@ public class NotesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState != null) {
-            currentPosition = savedInstanceState.getInt(SELECTED_INDEX, 0);
+        if (savedInstanceState != null){
+            note = (Note)savedInstanceState.getSerializable(SELECTED_NOTE);
         }
 
         initNotes(view.findViewById(R.id.notes_container));
@@ -53,36 +53,36 @@ public class NotesFragment extends Fragment {
             linearLayout.addView(textViewNote);
             final int index = i;
             textViewNote.setOnClickListener(v -> {
-                showNoteDetail(index);
+                showNoteDetailSer(Note.getNotes()[index]);
             });
         }
 
     }
 
-
-    private void showNoteDetail(int index) {
+    private void showNoteDetailSer(Note note) {
+        //Если портретная
         if (isPortrait()) {
-            NoteDetailFragment noteDetailFragment = NoteDetailFragment.newInstanse(index);
-            requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.fragment_container_description, noteDetailFragment)
-                    .addToBackStack("")
-                    .commit();
+            addDeteilFragmendSer(note);
         }
+        //если ландшафная
         if (isLandscape()) {
             FragmentManager fm = requireActivity().getSupportFragmentManager();
             if (fm.getBackStackEntryCount() >= 1) {
                 fm.popBackStack();
             }
-            NoteDetailFragment noteDetailFragment = NoteDetailFragment.newInstanse(index);
-            requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container_description, noteDetailFragment)
-                    .addToBackStack("")
-                    .commit();
+            addDeteilFragmendSer(note);
         }
+    }
+
+    private void addDeteilFragmendSer(Note note){
+        NoteDetailFragment noteDetailFragment = NoteDetailFragment.newInstanceSer(note);
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_description, noteDetailFragment)
+                .addToBackStack("")
+                .commit();
+
     }
 
 

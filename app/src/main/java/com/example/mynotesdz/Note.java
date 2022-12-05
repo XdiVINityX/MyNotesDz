@@ -2,12 +2,13 @@ package com.example.mynotesdz;
 
 import android.annotation.SuppressLint;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 
-public class Note {
+public class Note implements Serializable {
     private static Random random = new Random();
     private String title;
     private String description;
