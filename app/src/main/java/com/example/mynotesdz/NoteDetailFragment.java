@@ -37,7 +37,7 @@ public class NoteDetailFragment extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null){
-            note = (Note)arguments.getSerializable(SELECTED_NOTE);
+            note = arguments.getParcelable(SELECTED_NOTE);
             String data  = note.getCreationData();
             TextView textViewTitle = view.findViewById(R.id.title);
             TextView textViewDescription = view.findViewById(R.id.description);
@@ -52,7 +52,7 @@ public class NoteDetailFragment extends Fragment {
     public static NoteDetailFragment newInstanceSer(Note note){
         NoteDetailFragment noteDetailFragment = new NoteDetailFragment();
         Bundle arg = new Bundle();
-        arg.putSerializable(SELECTED_NOTE,note);
+        arg.putParcelable(SELECTED_NOTE,note);
         noteDetailFragment.setArguments(arg);
         return noteDetailFragment;
 

@@ -1,6 +1,8 @@
 package com.example.mynotesdz;
 
 import android.annotation.SuppressLint;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -8,8 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 
-public class Note implements Serializable {
-    private static Random random = new Random();
+public class Note implements Parcelable {
+    private static final Random random = new Random();
     private String title;
     private String description;
     private String creationData;
@@ -75,4 +77,37 @@ public class Note implements Serializable {
         this.description = description;
         this.creationData = creationData;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    //упаковываем поля в стек
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+       parcel.writeString(title);
+       parcel.writeString(description);
+       parcel.writeString(creationData);
+    }
+
+    //распаковываем стек
+    protected Note(Parcel parcel){
+        title = parcel.readString();
+        description = parcel.readString();
+        creationData = parcel.readString();
+    }
+
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel parcel) {
+        return new Note(parcel);
+        }
+
+        @Override
+        public Note[] newArray(int i) {
+            return new Note[i];
+        }
+    };
 }

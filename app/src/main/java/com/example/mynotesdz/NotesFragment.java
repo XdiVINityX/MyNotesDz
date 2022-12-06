@@ -24,7 +24,7 @@ public class NotesFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SELECTED_NOTE,note);
+        outState.putParcelable(SELECTED_NOTE,note);
     }
 
     @Override
