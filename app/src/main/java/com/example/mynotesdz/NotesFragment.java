@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -16,7 +17,6 @@ import android.widget.TextView;
 
 
 public class NotesFragment extends Fragment {
-
 
     static final String SELECTED_NOTE = "note";
     Note note;
@@ -53,16 +53,17 @@ public class NotesFragment extends Fragment {
             linearLayout.addView(textViewNote);
             final int index = i;
             textViewNote.setOnClickListener(v -> {
-                showNoteDetailSer(Note.getNotes()[index]);
+                showNoteDetailPar(Note.getNotes()[index]);
             });
         }
 
     }
 
-    private void showNoteDetailSer(Note note) {
+    private void showNoteDetailPar(Note note) {
         //Если портретная
         if (isPortrait()) {
-            addDeteilFragmendSer(note);
+            addDeteilFragmendPar(note);
+
         }
         //если ландшафная
         if (isLandscape()) {
@@ -70,11 +71,11 @@ public class NotesFragment extends Fragment {
             if (fm.getBackStackEntryCount() >= 1) {
                 fm.popBackStack();
             }
-            addDeteilFragmendSer(note);
+            addDeteilFragmendPar(note);
         }
     }
 
-    private void addDeteilFragmendSer(Note note){
+    private void addDeteilFragmendPar(Note note){
         NoteDetailFragment noteDetailFragment = NoteDetailFragment.newInstanceSer(note);
         requireActivity()
                 .getSupportFragmentManager()
@@ -93,6 +94,7 @@ public class NotesFragment extends Fragment {
     private boolean isPortrait() {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
+
 
 
 }

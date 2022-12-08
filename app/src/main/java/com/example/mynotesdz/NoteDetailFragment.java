@@ -55,6 +55,5 @@ public class NoteDetailFragment extends Fragment {
         arg.putParcelable(SELECTED_NOTE,note);
         noteDetailFragment.setArguments(arg);
         return noteDetailFragment;
-
     }
 }
