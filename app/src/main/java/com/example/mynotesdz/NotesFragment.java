@@ -20,6 +20,7 @@ public class NotesFragment extends Fragment {
 
     static final String SELECTED_NOTE = "note";
     Note note;
+    View dataContainer;
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -30,6 +31,7 @@ public class NotesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notes, container, false);
     }
@@ -40,20 +42,28 @@ public class NotesFragment extends Fragment {
         if (savedInstanceState != null){
             note = (Note)savedInstanceState.getSerializable(SELECTED_NOTE);
         }
-
+        dataContainer = view.findViewById(R.id.notes_container);
         initNotes(view.findViewById(R.id.notes_container));
     }
 
+    public void initNotes(){
+       initNotes(dataContainer);
+    }
+
+
+
+
     private void initNotes(View view) {
         LinearLayout linearLayout = (LinearLayout) view;
-        for (int i = 0; i < Note.getNotes().length; i++) {
+        linearLayout.removeAllViews();
+        for (int i = 0; i < Note.getNotes().size(); i++) {
             TextView textViewNote = new TextView(getContext());
             textViewNote.setTextSize(24);
-            textViewNote.setText(Note.getNotes()[i].getTitle());
+            textViewNote.setText(Note.getNotes().get(i).getTitle());
             linearLayout.addView(textViewNote);
             final int index = i;
             textViewNote.setOnClickListener(v -> {
-                showNoteDetailPar(Note.getNotes()[index]);
+                showNoteDetailPar(Note.getNotes().get(index));
             });
         }
 

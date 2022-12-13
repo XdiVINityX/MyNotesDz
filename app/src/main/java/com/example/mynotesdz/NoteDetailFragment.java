@@ -7,6 +7,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,6 +23,7 @@ public class NoteDetailFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
     }
@@ -27,10 +31,50 @@ public class NoteDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_note_detail, container, false);
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        // раздули меню активности детализация
+        inflater.inflate(R.menu.detail_menu_by_fragmen,menu);
+        //меню от активити
+        MenuItem item = menu.findItem(R.id.menu_about_program);
+        if (item != null){
+            item.setVisible(false);
+        }
+        item = menu.findItem(R.id.menu_add);
+        if (item != null){
+            item.setVisible(false);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.menu_delete:
+                Note.getNotes().remove(note);
+                note = null;
+                updateData();
+                requireActivity().getSupportFragmentManager().popBackStack();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    // проходим по всему стеку
+    private void updateData(){
+        for (Fragment fragment: requireActivity().getSupportFragmentManager().getFragments()) {
+            if (fragment instanceof NotesFragment){
+                ((NotesFragment) fragment).initNotes();
+                break;
+            }
+        }
+    }
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

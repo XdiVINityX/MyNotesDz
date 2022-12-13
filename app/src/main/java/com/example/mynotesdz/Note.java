@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -17,7 +18,7 @@ public class Note implements Parcelable {
     private String creationData;
 
 
-    private static Note[] notes;
+    private static ArrayList<Note> notes;
 
     public String getTitle() {
         return title;
@@ -35,7 +36,7 @@ public class Note implements Parcelable {
         this.description = description;
     }
 
-    public static Note[] getNotes() {
+    public static ArrayList<Note> getNotes() {
         return notes;
     }
 
@@ -47,15 +48,15 @@ public class Note implements Parcelable {
         this.creationData = creationData;
     }
 
-    public static void setNotes(Note[] notes) {
+    public static void setNotes(ArrayList<Note> notes) {
         Note.notes = notes;
     }
 
     // Как только запустили приложение, отрабатывает конструкция
     static {
-        notes = new Note[10];
-        for (int i = 0; i < notes.length; i++) {
-            notes[i] = Note.getNote(i);
+        notes = new ArrayList<>();
+        for (int i = 0; i < 11; i++) {
+            notes.add(Note.getNote(i));
         }
     }
 
