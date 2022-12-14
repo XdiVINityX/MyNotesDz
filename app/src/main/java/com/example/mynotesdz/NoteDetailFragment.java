@@ -1,5 +1,6 @@
 package com.example.mynotesdz;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,7 @@ public class NoteDetailFragment extends Fragment {
         if (item != null){
             item.setVisible(false);
         }
+
     }
 
     @Override
