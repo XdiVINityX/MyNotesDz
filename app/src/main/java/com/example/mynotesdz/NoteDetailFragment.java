@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class NoteDetailFragment extends Fragment {
@@ -62,6 +63,7 @@ public class NoteDetailFragment extends Fragment {
                 note = null;
                 updateData();
                 requireActivity().getSupportFragmentManager().popBackStack();
+                Toast.makeText(getContext(),"Заметака удалена", Toast.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }

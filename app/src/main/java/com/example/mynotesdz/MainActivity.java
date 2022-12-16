@@ -3,8 +3,10 @@ package com.example.mynotesdz;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -49,10 +51,11 @@ public class MainActivity extends AppCompatActivity {
                         .addToBackStack("")
                         .add(R.id.fragment_container_description, new AboutProgrammFragment())
                         .commit();
+
                 return true;
 
             case R.id.menu_exit:
-                finish();
+                showAlertDialogExit();
                 return true;
 
             case R.id.menu_add:
@@ -61,6 +64,32 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void showAlertDialogExit(){
+       new  AlertDialog.Builder(this)
+               .setTitle("Выход")
+               .setMessage("Вы точно хотите выйти?")
+               .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getApplicationContext(),"Вы вышли из приложения",Toast.LENGTH_LONG)
+                              .show();
+
+                       finish();
+
+                   }
+               })
+               .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
+                   }
+               })
+               .setNeutralButton("Отмена",null)
+               .show();
+
+
     }
 }
 
