@@ -48,7 +48,7 @@ public class NotesFragment extends Fragment {
             note = (Note)savedInstanceState.getSerializable(SELECTED_NOTE);
         }
         dataContainer = view.findViewById(R.id.notes_container);
-        initNotes(view.findViewById(R.id.notes_container));
+        initNotesItem(view.findViewById(R.id.notes_container));
     }
 
     @Override
@@ -59,22 +59,19 @@ public class NotesFragment extends Fragment {
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
-
-    public void initNotes(){
-       initNotes(dataContainer);
+    public void initNotesItem(){
+        initNotesItem(dataContainer);
     }
 
-
-
-
-    private void initNotes(View view) {
+    private void initNotesItem(View view) {
         LinearLayout linearLayout = (LinearLayout) view;
         linearLayout.removeAllViews();
         for (int i = 0; i < Note.getNotes().size(); i++) {
-            TextView textViewNote = new TextView(getContext());
+            View listItem = getLayoutInflater().inflate(R.layout.activity_main_fragment_container_list_item,linearLayout,false);
+            linearLayout.addView(listItem);
+            TextView textViewNote = listItem.findViewById(R.id.text_view);
             textViewNote.setTextSize(24);
             textViewNote.setText(Note.getNotes().get(i).getTitle());
-            linearLayout.addView(textViewNote);
             final int index = i;
             textViewNote.setOnClickListener(v -> {
                 showNoteDetailPar(Note.getNotes().get(index));

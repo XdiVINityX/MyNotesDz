@@ -72,7 +72,7 @@ public class NoteDetailFragment extends Fragment {
     private void updateData(){
         for (Fragment fragment: requireActivity().getSupportFragmentManager().getFragments()) {
             if (fragment instanceof NotesFragment){
-                ((NotesFragment) fragment).initNotes();
+                ((NotesFragment)fragment).initNotesItem();
                 break;
             }
         }
