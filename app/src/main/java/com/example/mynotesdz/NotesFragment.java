@@ -45,7 +45,7 @@ public class NotesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null){
-            note = (Note)savedInstanceState.getSerializable(SELECTED_NOTE);
+            note = (Note)savedInstanceState.getParcelable(SELECTED_NOTE);
         }
         dataContainer = view.findViewById(R.id.notes_container);
         initNotesItem(view.findViewById(R.id.notes_container));
@@ -67,6 +67,7 @@ public class NotesFragment extends Fragment {
         LinearLayout linearLayout = (LinearLayout) view;
         linearLayout.removeAllViews();
         for (int i = 0; i < Note.getNotes().size(); i++) {
+            //записываем ссылку результата работы инфлейтера
             View listItem = getLayoutInflater().inflate(R.layout.activity_main_fragment_container_list_item,linearLayout,false);
             linearLayout.addView(listItem);
             TextView textViewNote = listItem.findViewById(R.id.text_view);
@@ -97,7 +98,7 @@ public class NotesFragment extends Fragment {
     }
 
     private void addDeteilFragmendPar(Note note){
-        NoteDetailFragment noteDetailFragment = NoteDetailFragment.newInstanceSer(note);
+        NoteDetailFragment noteDetailFragment = NoteDetailFragment.newInstancePar(note);
         requireActivity()
                 .getSupportFragmentManager()
                 .beginTransaction()

@@ -97,7 +97,7 @@ public class NoteDetailFragment extends Fragment {
         }
     }
 
-    public static NoteDetailFragment newInstanceSer(Note note){
+    public static NoteDetailFragment newInstancePar(Note note){
         NoteDetailFragment noteDetailFragment = new NoteDetailFragment();
         Bundle arg = new Bundle();
         arg.putParcelable(SELECTED_NOTE,note);
