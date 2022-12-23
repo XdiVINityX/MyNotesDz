@@ -11,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 public class NotesRecycleFragment extends Fragment {
+    NotesAdapter notesAdapter;
 
 
 
@@ -31,12 +34,32 @@ public class NotesRecycleFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState != null){
-           // Note note = savedInstanceState.getParcelable();
-        }
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        NotesAdapter notesAdapter = new NotesAdapter();
-        //notesAdapter.setArrayNotes();
+        InitNotesAdapter();
+        initRecycler(view);
+
+
     }
+
+    private void InitNotesAdapter(){
+        notesAdapter = new NotesAdapter();
+        notesAdapter.setArrayListNotesData(getData());
+    }
+
+
+    private void initRecycler(View view){
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(notesAdapter);
+    }
+
+
+     private ArrayList<Note> getData(){
+        ArrayList<Note> data = Note.getNotes();
+        return data;
+    }
+
+
+
+
 }

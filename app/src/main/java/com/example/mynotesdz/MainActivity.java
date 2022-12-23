@@ -20,7 +20,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
+        /*if(savedInstanceState == null){
+            NotesRecycleFragment notesRecycleFragment = new NotesRecycleFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_recycle,notesRecycleFragment)
+                    .commit();
+        }*/
+
+
+       if (savedInstanceState == null) {
             NotesFragment notesFragment = new NotesFragment();
 
             getSupportFragmentManager()

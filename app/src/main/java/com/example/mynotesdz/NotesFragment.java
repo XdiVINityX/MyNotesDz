@@ -71,7 +71,7 @@ public class NotesFragment extends Fragment {
             View listItem = getLayoutInflater().inflate(R.layout.activity_main_fragment_container_list_item,linearLayout,false);
             linearLayout.addView(listItem);
             TextView textViewNote = listItem.findViewById(R.id.text_view);
-            textViewNote.setTextSize(24);
+            textViewNote.setTextSize(32);
             textViewNote.setText(Note.getNotes().get(i).getTitle());
             final int index = i;
             textViewNote.setOnClickListener(v -> {

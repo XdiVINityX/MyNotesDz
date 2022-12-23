@@ -9,11 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
-    private Note[] arrayNotes;
+import java.util.ArrayList;
 
-    public void setArrayNotes(Note[] arrayNotes) {
-        this.arrayNotes = arrayNotes;
+public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
+
+    private ArrayList<Note> arrayListNotes = new ArrayList<>();
+
+    public void setArrayListNotesData(ArrayList<Note> arrayListNotes) {
+        this.arrayListNotes = arrayListNotes;
+        notifyDataSetChanged();// команда адаптеру отрисовать все(!) полученные данные
     }
 
     @NonNull
@@ -25,7 +29,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.bindContentWithLayout(arrayNotes[position]);
+        //holder.bindContentWithLayout(arrayListNotes.get(position));
 
     }
 
@@ -43,7 +47,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-             textViewNote = itemView.findViewById(R.id.text_view);
+             textViewNote = (TextView)itemView.findViewById(R.id.text_view);
 
         }
         //Связываем контент с макетом
